@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conversancy</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <header>
+    <select id="unit" aria-label="Unit"></select>
+    <nav id="topics"></nav>
+    <span id="left"></span>
+  </header>
+
+  <main>
+    <div id="board">
+      <div id="card">
+        <span id="topic-label"></span>
+        <p id="prompt"></p>
+        <p id="followup" hidden></p>
+      </div>
+      <svg id="wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path data-level="4" d="M0 50 C55 50 45 12.5 100 12.5" />
+        <path data-level="3" d="M0 50 C55 50 45 37.5 100 37.5" />
+        <path data-level="2" d="M0 50 C55 50 45 62.5 100 62.5" />
+        <path data-level="1" d="M0 50 C55 50 45 87.5 100 87.5" />
+      </svg>
+      <div id="ratings"></div>
+    </div>
+    <div id="controls">
+      <button id="key-toggle" type="button">Key</button>
+      <button id="next" type="button">Next</button>
+    </div>
+    <ul id="key" hidden></ul>
+  </main>
+
+  <script src="js/stars.js"></script>
+  <script src="js/registry.js"></script>
+
+  <script src="units/earth-view/unit.js"></script>
+  <script src="units/earth-view/earth.js"></script>
+  <script src="units/earth-view/sun.js"></script>
+  <script src="units/earth-view/sky.js"></script>
+  <script src="units/earth-view/connections.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
