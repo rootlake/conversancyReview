@@ -67,8 +67,6 @@ header {
 }
 #topics button.on { color: var(--ink); border-color: rgba(236, 232, 222, 0.45); }
 
-#left { margin-left: auto; white-space: nowrap; color: var(--dim); font-size: 0.85rem; }
-
 #unit {
   flex: none;
   padding: 0.4rem 0.95rem;

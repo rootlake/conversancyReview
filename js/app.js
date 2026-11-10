@@ -17,7 +17,6 @@ const $ = (sel) => document.querySelector(sel);
 const els = {
   unit: $("#unit"),
   topics: $("#topics"),
-  left: $("#left"),
   board: $("#board"),
   wires: document.querySelectorAll("#wires path"),
   card: $("#card"),
@@ -43,7 +42,6 @@ const savedUnit = store.get("unit", null);
 const state = {
   unit: unitById(savedUnit) ? savedUnit : UNITS.at(-1).id,
   topic: store.get("topic", RANDOM),
-  used: new Set(store.get("used", [])),
   current: null,
   shown: null,
   pick: null,
@@ -53,17 +51,10 @@ if (!hasTopic(state.unit, state.topic)) state.topic = RANDOM;
 
 const pool = () =>
   threads.filter((t) => t.unit === state.unit && (state.topic === RANDOM || t.topic === state.topic));
-const unused = () => pool().filter((t) => !state.used.has(t.id));
 
 function draw() {
-  let open = unused().filter((t) => t !== state.current);
-  if (!open.length) {
-    pool().forEach((t) => state.used.delete(t.id));
-    open = pool().filter((t) => t !== state.current);
-  }
+  const open = pool().filter((t) => t !== state.current);
   state.current = open[Math.floor(Math.random() * open.length)] ?? state.current;
-  state.used.add(state.current.id);
-  store.set("used", [...state.used]);
   state.shown = null;
   state.pick = null;
   state.showKey = false;
@@ -113,7 +104,6 @@ function render() {
   els.topics.querySelectorAll("button").forEach((b) => {
     b.classList.toggle("on", b.dataset.id === state.topic);
   });
-  els.left.textContent = `${unused().length} left`;
 
   els.board.classList.toggle("followup", Boolean(state.shown));
   els.board.classList.toggle("branched", Boolean(lit));
@@ -172,4 +162,5 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "k") toggleKey();
 });
 
+localStorage.removeItem("used");
 draw();
